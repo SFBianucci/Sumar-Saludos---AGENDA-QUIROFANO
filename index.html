@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sumar Salud - Agendamiento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Custom scrollbar for better aesthetics in the schedule view */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      /* Custom Checkbox to ensure white background when unchecked */
+      .custom-checkbox {
+        appearance: none;
+        background-color: white;
+        margin: 0;
+        font: inherit;
+        color: currentColor;
+        width: 1.15em;
+        height: 1.15em;
+        border: 1px solid #cbd5e1;
+        border-radius: 0.25em;
+        display: grid;
+        place-content: center;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+      }
+
+      .custom-checkbox::before {
+        content: "";
+        width: 0.65em;
+        height: 0.65em;
+        transform: scale(0);
+        transition: 120ms transform ease-in-out;
+        box-shadow: inset 1em 1em white;
+        transform-origin: center;
+        clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+      }
+
+      .custom-checkbox:checked {
+        background-color: #2563eb; /* blue-600 */
+        border-color: #2563eb;
+      }
+
+      .custom-checkbox:checked::before {
+        transform: scale(1);
+      }
+      
+      .custom-checkbox:focus {
+        outline: 2px solid #93c5fd; /* blue-300 */
+        outline-offset: 2px;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "uuid": "https://esm.sh/uuid@^13.0.0",
+    "date-fns": "https://esm.sh/date-fns@3.3.1",
+    "date-fns/locale": "https://esm.sh/date-fns@3.3.1/locale",
+    "date-fns/": "https://esm.sh/date-fns@^4.1.0/"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

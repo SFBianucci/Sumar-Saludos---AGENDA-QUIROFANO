@@ -1,0 +1,5 @@
+{
+  "name": "Sumar Salud - Quirófanos",
+  "description": "Demo de sistema de agendamiento quirúrgico para Sumar Salud. Gestión de quirófanos y endoscopias en formato calendario diario.",
+  "requestFramePermissions": []
+}
