@@ -61,7 +61,7 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
     return h * 60 + m;
   };
 
-  const checkForOverlap = () => {
+  const getConflicts = () => {
     const newStart = timeToMinutes(startTime);
     const newEnd = newStart + Number(duration) + Number(cleanTime);
 
@@ -79,15 +79,23 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
       return (newStart < aptEnd) && (newEnd > aptStart);
     });
 
-    return conflicts.length > 0;
+    return conflicts;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    if (checkForOverlap()) {
-      setError("El turno se superpone con otro agendamiento existente en este quirófano.");
+    const conflicts = getConflicts();
+    if (conflicts.length > 0) {
+      const c = conflicts[0];
+      const startMins = timeToMinutes(c.startTime);
+      const totalMins = startMins + c.durationMinutes + c.cleanTimeMinutes;
+      const endHour = Math.floor(totalMins / 60);
+      const endMin = totalMins % 60;
+      const endTimeFormatted = `${endHour.toString().padStart(2, '0')}:${endMin.toString().padStart(2, '0')}`;
+      
+      setError(`Superposición detectada: El quirófano está ocupado por ${c.patient.lastName} de ${c.startTime} a ${endTimeFormatted} (incluye limpieza).`);
       return;
     }
 
@@ -145,8 +153,8 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
       
       {error && (
         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md flex items-center">
-            <AlertTriangle className="w-5 h-5 mr-2" />
-            {error}
+            <AlertTriangle className="w-5 h-5 mr-2 flex-shrink-0" />
+            <span>{error}</span>
         </div>
       )}
 

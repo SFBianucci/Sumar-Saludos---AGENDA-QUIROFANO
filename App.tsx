@@ -10,12 +10,20 @@ import { Logo } from './components/Logo';
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
+const getLocalDateString = () => {
+  const d = new Date();
+  const offset = d.getTimezoneOffset() * 60000;
+  return new Date(d.getTime() - offset).toISOString().split('T')[0];
+};
+
+const LOCAL_TODAY = getLocalDateString();
+
 // Mock Initial Data
 const INITIAL_APPOINTMENTS: Appointment[] = [
   {
     id: '1',
     roomId: RoomId.Q1,
-    date: new Date().toISOString().split('T')[0],
+    date: LOCAL_TODAY,
     startTime: '08:00',
     durationMinutes: 90,
     cleanTimeMinutes: 30,
@@ -36,7 +44,7 @@ const INITIAL_APPOINTMENTS: Appointment[] = [
   {
     id: '2',
     roomId: RoomId.Q3,
-    date: new Date().toISOString().split('T')[0],
+    date: LOCAL_TODAY,
     startTime: '10:00',
     durationMinutes: 60,
     cleanTimeMinutes: 15,
@@ -57,7 +65,7 @@ const INITIAL_APPOINTMENTS: Appointment[] = [
 ];
 
 function App() {
-  const [currentDate, setCurrentDate] = useState(new Date().toISOString().split('T')[0]);
+  const [currentDate, setCurrentDate] = useState(LOCAL_TODAY);
   const [appointments, setAppointments] = useState<Appointment[]>(INITIAL_APPOINTMENTS);
   const [isModalOpen, setIsModalOpen] = useState(false);
   

@@ -63,6 +63,21 @@
         outline: 2px solid #93c5fd; /* blue-300 */
         outline-offset: 2px;
       }
+
+      /* Striped background for cleaning time */
+      .bg-stripes {
+        background-image: linear-gradient(
+          45deg,
+          rgba(0, 0, 0, 0.05) 25%,
+          transparent 25%,
+          transparent 50%,
+          rgba(0, 0, 0, 0.05) 50%,
+          rgba(0, 0, 0, 0.05) 75%,
+          transparent 75%,
+          transparent
+        );
+        background-size: 10px 10px;
+      }
     </style>
   <script type="importmap">
 {
@@ -73,8 +88,8 @@
     "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
     "date-fns": "https://esm.sh/date-fns@^4.1.0",
     "date-fns/": "https://esm.sh/date-fns@^4.1.0/",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
-    "vite": "https://esm.sh/vite@^7.3.1"
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
   }
 }
 </script>

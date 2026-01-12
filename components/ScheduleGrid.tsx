@@ -183,10 +183,10 @@ export const ScheduleGrid: React.FC<ScheduleGridProps> = ({
                     return (
                       <div 
                         key={`clean-${apt.id}`}
-                        className="absolute left-1 right-1 flex items-center justify-center bg-stripes-gray opacity-40 pointer-events-none"
+                        className="absolute left-1 right-1 flex items-center justify-center bg-stripes pointer-events-none"
                         style={{ top, height }}
                       >
-                        <Sparkles className="w-3 h-3 text-slate-500" />
+                        <Sparkles className="w-3 h-3 text-slate-500 opacity-70" />
                       </div>
                     )
                   })}
@@ -208,7 +208,7 @@ export const ScheduleGrid: React.FC<ScheduleGridProps> = ({
           <span>Urgencia</span>
         </div>
         <div className="flex items-center gap-1">
-          <Sparkles className="w-3 h-3 text-slate-400" />
+          <div className="w-3 h-3 bg-stripes border border-slate-200"></div>
           <span>Limpieza</span>
         </div>
       </div>
