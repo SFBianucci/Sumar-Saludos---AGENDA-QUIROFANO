@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Appointment, ProcedureType, RoomId } from '../types';
 import { ROOMS, SPECIALTIES, INSURANCES, EQUIPMENT_OPTIONS, START_HOUR, END_HOUR } from '../constants';
 import { Save, Clock, User, Activity, Briefcase, AlertTriangle } from 'lucide-react';
@@ -59,6 +59,29 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const timeToMinutes = (time: string) => {
     const [h, m] = time.split(':').map(Number);
     return h * 60 + m;
+  };
+
+  // Calculate occupied slots to disable in the dropdown
+  const occupiedSlots = useMemo(() => {
+    return existingAppointments
+      .filter(apt => {
+         // Filter for current room/date, ignore self
+         if (apt.roomId !== roomId || apt.date !== date) return false;
+         if (initialData && apt.id === initialData.id) return false;
+         return true;
+      })
+      .map(apt => {
+        const start = timeToMinutes(apt.startTime);
+        const end = start + apt.durationMinutes + apt.cleanTimeMinutes;
+        return { start, end };
+      });
+  }, [existingAppointments, roomId, date, initialData]);
+
+  const isTimeOccupied = (timeStr: string) => {
+    const t = timeToMinutes(timeStr);
+    // Logic: A start time is invalid if it falls strictly INSIDE an existing appointment's duration (Start <= t < End)
+    // We allow t == existingEnd (back-to-back), but not t == existingStart
+    return occupiedSlots.some(slot => t >= slot.start && t < slot.end);
   };
 
   const getConflicts = () => {
@@ -142,10 +165,11 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
   // Generate time options
   const timeOptions = [];
   for (let i = START_HOUR; i < END_HOUR; i++) {
-    timeOptions.push(`${i.toString().padStart(2, '0')}:00`);
-    timeOptions.push(`${i.toString().padStart(2, '0')}:15`);
-    timeOptions.push(`${i.toString().padStart(2, '0')}:30`);
-    timeOptions.push(`${i.toString().padStart(2, '0')}:45`);
+    const h = i.toString().padStart(2, '0');
+    timeOptions.push({ value: `${h}:00`, label: `${h}:00` });
+    timeOptions.push({ value: `${h}:15`, label: `${h}:15` });
+    timeOptions.push({ value: `${h}:30`, label: `${h}:30` });
+    timeOptions.push({ value: `${h}:45`, label: `${h}:45` });
   }
 
   return (
@@ -195,9 +219,18 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 <SelectValue placeholder="--:--" />
               </SelectTrigger>
               <SelectContent className="max-h-[200px]">
-                {timeOptions.map(t => (
-                  <SelectItem key={t} value={t}>{t}</SelectItem>
-                ))}
+                {timeOptions.map(t => {
+                   const occupied = isTimeOccupied(t.value);
+                   return (
+                      <SelectItem 
+                        key={t.value} 
+                        value={t.value}
+                        className={occupied ? "opacity-50 line-through text-slate-400 pointer-events-none" : ""}
+                      >
+                        {t.label}
+                      </SelectItem>
+                   );
+                })}
               </SelectContent>
             </Select>
           </div>

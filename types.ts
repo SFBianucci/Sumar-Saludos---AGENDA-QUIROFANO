@@ -43,4 +43,5 @@ export interface RoomDefinition {
   id: RoomId;
   name: string;
   color: string;
+  cardColor: string;
 }

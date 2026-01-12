@@ -1,12 +1,13 @@
 import { RoomDefinition, RoomId } from './types';
 
 // Updated colors to match the "Sumar Salud" Blue/Cyan/Medical theme
+// Using LIGHT/PASTEL colors with strong left borders (concept: "celestito", "transparentado")
 export const ROOMS: RoomDefinition[] = [
-  { id: RoomId.Q1, name: 'Quirófano 1', color: 'bg-sky-50 border-sky-200' },
-  { id: RoomId.Q2, name: 'Quirófano 2', color: 'bg-blue-50 border-blue-200' },
-  { id: RoomId.Q3, name: 'Quirófano 3', color: 'bg-cyan-50 border-cyan-200' },
-  { id: RoomId.Q4, name: 'Quirófano 4', color: 'bg-slate-50 border-slate-200' },
-  { id: RoomId.ENDO, name: 'Endoscopias', color: 'bg-emerald-50 border-emerald-200' },
+  { id: RoomId.Q1, name: 'Quirófano 1', color: 'bg-sky-50 border-sky-200', cardColor: 'bg-sky-50 border-sky-500 text-sky-900' },
+  { id: RoomId.Q2, name: 'Quirófano 2', color: 'bg-blue-50 border-blue-200', cardColor: 'bg-blue-50 border-blue-500 text-blue-900' },
+  { id: RoomId.Q3, name: 'Quirófano 3', color: 'bg-cyan-50 border-cyan-200', cardColor: 'bg-cyan-50 border-cyan-500 text-cyan-900' },
+  { id: RoomId.Q4, name: 'Quirófano 4', color: 'bg-slate-50 border-slate-200', cardColor: 'bg-slate-50 border-slate-500 text-slate-900' },
+  { id: RoomId.ENDO, name: 'Endoscopias', color: 'bg-emerald-50 border-emerald-200', cardColor: 'bg-emerald-50 border-emerald-500 text-emerald-900' },
 ];
 
 export const SPECIALTIES = [
@@ -46,4 +47,4 @@ export const EQUIPMENT_OPTIONS = [
 
 export const START_HOUR = 7;
 export const END_HOUR = 22;
-export const PIXELS_PER_HOUR = 120; // Controls the vertical zoom of the calendar
+export const PIXELS_PER_HOUR = 130;

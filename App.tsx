@@ -7,6 +7,7 @@ import { Appointment, RoomId, ProcedureType } from './types';
 import { Plus } from 'lucide-react';
 import { ROOMS } from './constants';
 import { Logo } from './components/Logo';
+import { MobileLogo } from './components/MobileLogo';
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
@@ -129,18 +130,26 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
+    // Prevent body scroll, use h-screen to force app-like behavior
+    <div className="h-screen w-screen overflow-hidden bg-slate-50 flex flex-col font-sans text-slate-900">
       {/* Header */}
-      <header className="bg-white border-b border-slate-200 px-6 py-3 flex items-center justify-between sticky top-0 z-30 shadow-sm">
-        <div className="flex items-center space-x-3">
-          <Logo className="h-12 w-auto" />
-          <div className="h-8 w-px bg-slate-200 mx-2"></div>
-          <p className="text-sm text-slate-500 font-medium">Gestión Quirúrgica</p>
+      <header className="bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between shrink-0 z-50 shadow-sm">
+        <div className="flex items-center space-x-2 md:space-x-3 overflow-hidden">
+          {/* Logo Switching: Mobile vs Desktop */}
+          <div className="md:hidden">
+            <MobileLogo className="h-8 w-auto shrink-0" />
+          </div>
+          <div className="hidden md:block">
+            <Logo className="h-8 md:h-10 w-auto shrink-0" />
+          </div>
+
+          <div className="h-6 w-px bg-slate-200 mx-1 md:mx-2 hidden md:block"></div>
+          <p className="text-sm text-slate-500 font-medium truncate hidden md:block">Agendamiento Quirúrgico</p>
         </div>
         
-        <div className="flex items-center space-x-4">
-           {/* Date Picker */}
-           <div className="w-56">
+        <div className="flex items-center space-x-2 md:space-x-4 ml-2">
+           {/* Date Picker - Compact on mobile */}
+           <div className="w-36 md:w-56">
              <DatePicker 
                value={getDateObject(currentDate)}
                onChange={handleDateChange}
@@ -149,35 +158,37 @@ function App() {
 
           <button 
             onClick={openNewAppointmentModal}
-            className="bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white px-5 py-2.5 rounded-lg font-semibold text-sm flex items-center transition-all shadow-md shadow-blue-500/20"
+            className="bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white px-3 md:px-5 py-2 md:py-2.5 rounded-lg font-semibold text-sm flex items-center justify-center transition-all shadow-md shadow-blue-500/20 shrink-0"
+            aria-label="Nuevo Turno"
           >
-            <Plus className="w-5 h-5 mr-2" />
-            Nuevo Turno
+            <Plus className="w-5 h-5 md:mr-2" />
+            <span className="hidden md:inline">Nuevo Turno</span>
           </button>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 p-4 md:p-6 overflow-hidden flex flex-col">
+      <main className="flex-1 p-2 md:p-6 overflow-hidden flex flex-col min-h-0 relative">
         
         {/* Statistics / Summary Bar */}
-        <div className="mb-4 flex gap-4 overflow-x-auto pb-2">
-            <div className="bg-white p-3 rounded-xl border border-slate-100 shadow-sm min-w-[160px] flex flex-col justify-between">
-                <span className="text-xs text-slate-400 uppercase font-bold tracking-wider">Total Turnos</span>
-                <div className="text-3xl font-bold text-slate-700 mt-1">{appointments.filter(a => a.date === currentDate).length}</div>
+        <div className="mb-3 md:mb-4 flex gap-3 overflow-x-auto pb-1 shrink-0 no-scrollbar">
+            <div className="bg-white p-2.5 md:p-3 rounded-xl border border-slate-100 shadow-sm min-w-[130px] md:min-w-[160px] flex flex-col justify-between">
+                <span className="text-[10px] md:text-xs text-slate-400 uppercase font-bold tracking-wider">Total Turnos</span>
+                <div className="text-2xl md:text-3xl font-bold text-slate-700 mt-0.5">{appointments.filter(a => a.date === currentDate).length}</div>
             </div>
-            <div className="bg-white p-3 rounded-xl border border-slate-100 shadow-sm min-w-[160px] flex flex-col justify-between relative overflow-hidden">
+            <div className="bg-white p-2.5 md:p-3 rounded-xl border border-slate-100 shadow-sm min-w-[130px] md:min-w-[160px] flex flex-col justify-between relative overflow-hidden">
                 <div className="absolute right-0 top-0 p-2 opacity-10">
                   <div className="w-16 h-16 bg-red-500 rounded-full blur-xl"></div>
                 </div>
-                <span className="text-xs text-red-400 uppercase font-bold tracking-wider">Urgencias</span>
-                <div className="text-3xl font-bold text-red-500 mt-1">
+                <span className="text-[10px] md:text-xs text-red-400 uppercase font-bold tracking-wider">Urgencias</span>
+                <div className="text-2xl md:text-3xl font-bold text-red-500 mt-0.5">
                     {appointments.filter(a => a.date === currentDate && a.procedureType === ProcedureType.URGENCIA).length}
                 </div>
             </div>
         </div>
 
-        <div className="flex-1 min-h-0 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        {/* Grid Container */}
+        <div className="flex-1 min-h-0 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden relative">
           <ScheduleGrid 
             date={currentDate}
             appointments={appointments}
