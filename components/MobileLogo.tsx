@@ -10,14 +10,14 @@ export const MobileLogo: React.FC<{ className?: string }> = ({ className = "h-8"
         className="w-full h-full"
         aria-label="Sumar Salud Mobile Logo"
       >
-        <path d="M23.6696 47.2892C10.5967 47.2892 0.000192879 57.8858 0.000192879 70.9586C0.000192879 84.0314 10.5967 94.6279 23.6696 94.6279H47.4032L47.4032 117.693C47.4032 130.437 57.199 141.404 69.9277 142.005C83.5215 142.645 94.742 131.814 94.742 118.362L94.742 47.1541L23.6696 47.2892Z" fill="url(#paint0_linear_mobile)"/>
-        <path d="M117.527 46.4608L95.6431 46.4608V24.2796C95.6431 10.87 84.7736 0.000401207 71.3639 0.000401207C57.9542 0.000401207 47.0847 10.87 47.0847 24.2796L47.0847 95.1611L117.564 95.0556C130.97 95.0358 141.826 84.1629 141.826 70.7565C141.826 57.3403 130.947 46.4608 117.527 46.4608Z" fill="url(#paint1_linear_mobile)"/>
+        <path d="M23.6696 47.2892C10.5967 47.2892 0.000192879 57.8858 0.000192879 70.9586C0.000192879 84.0314 10.5967 94.6279 23.6696 94.6279H47.4032L47.4032 117.693C47.4032 130.437 57.199 141.404 69.9277 142.005C83.5215 142.645 94.742 131.814 94.742 118.362L94.742 47.1541L23.6696 47.2892Z" fill="url(#paint0_linear_mobile_icon)"/>
+        <path d="M117.527 46.4608L95.6431 46.4608V24.2796C95.6431 10.87 84.7736 0.000401207 71.3639 0.000401207C57.9542 0.000401207 47.0847 10.87 47.0847 24.2796L47.0847 95.1611L117.564 95.0556C130.97 95.0358 141.826 84.1629 141.826 70.7565C141.826 57.3403 130.947 46.4608 117.527 46.4608Z" fill="url(#paint1_linear_mobile_icon)"/>
         <defs>
-          <linearGradient id="paint0_linear_mobile" x1="37.7616" y1="112.291" x2="68.9038" y2="75.3661" gradientUnits="userSpaceOnUse">
+          <linearGradient id="paint0_linear_mobile_icon" x1="37.7616" y1="112.291" x2="68.9038" y2="75.3661" gradientUnits="userSpaceOnUse">
             <stop stopColor="#00BDFB"/>
             <stop offset="1" stopColor="#0053C5"/>
           </linearGradient>
-          <linearGradient id="paint1_linear_mobile" x1="101.322" y1="48.2265" x2="47.3878" y2="96.1677" gradientUnits="userSpaceOnUse">
+          <linearGradient id="paint1_linear_mobile_icon" x1="101.322" y1="48.2265" x2="47.3878" y2="96.1677" gradientUnits="userSpaceOnUse">
             <stop stopColor="#51C6EC"/>
             <stop offset="1" stopColor="#08C2FF"/>
           </linearGradient>
