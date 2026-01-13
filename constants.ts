@@ -41,8 +41,6 @@ export const EQUIPMENT_OPTIONS = [
   'Torre de Laparoscopía',
   'Microscopio',
   'Láser',
-  'Monitor Multiparamétrico',
-  'Mesa de Anestesia',
 ];
 
 export const START_HOUR = 7;
